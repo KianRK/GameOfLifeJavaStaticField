@@ -17,6 +17,15 @@ import GameOfLifeData.Field;
 
 public class MainView extends VBox {
 	
+	private static int windowSize = 800;
+	public static int getWindowSize() {
+		return windowSize;
+	}
+
+	public void setWindowSize(int windowSize) {
+		MainView.windowSize = windowSize;
+	}
+
 	private ToggleButton playButton;
 	protected Button stepButton;
 	private Canvas canvas;
@@ -37,7 +46,7 @@ public class MainView extends VBox {
 		this.stepButton.setAlignment(Pos.BASELINE_CENTER);
 		this.playButton.setAlignment(Pos.BASELINE_CENTER);
 		
-		this.canvas = new Canvas(800, 800);
+		this.canvas = new Canvas(windowSize, windowSize);
 		/**
 		 * set.OnMousePressed(this::drawCells) enables to apply drawCells()-method with a 
 		 * single mouse click

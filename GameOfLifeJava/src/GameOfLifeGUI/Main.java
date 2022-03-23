@@ -8,15 +8,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
 public class Main extends Application {
+	
+	public int dispSize = GameOfLifeGUI.MainView.getWindowSize();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
+						
 			MainView mainView = new MainView();
 			
-			Scene scene = new Scene(mainView, 800, 832);
+			Scene scene = new Scene(mainView, dispSize, dispSize+32);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			Timeline timeline = new Timeline();
