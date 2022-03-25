@@ -8,7 +8,7 @@ public class Field implements TransitionRules{
 	private int height;
 	private int ratio = 50;
 	
-	public ArrayList<Cell> field = new ArrayList<Cell>();
+	private Cell [width][heigth] playingField;
 		
 	public Field() {
 
@@ -20,7 +20,7 @@ public class Field implements TransitionRules{
 		fillField();
 	}
 
-	public void fillField() {													// Füllt das Array "field" dieser Klasse mit Zellen zufälligen Zustandes.
+	public void fillField() {													// Füllt das Array "playingField" dieser Klasse mit Zellen zufälligen Zustandes.
 		boolean cellState;
 		for (int i = 0; i < this.height; i++) {
 			for ( int j = 0; j < this.width; j++) {
@@ -30,10 +30,10 @@ public class Field implements TransitionRules{
 				} else {														// erfolgt in diesem Fall eine 50 : 50 Verteilung von toten und lebenden
 					cellState = false;											// Zellen.
 				}
-				field.add(new Cell(cellState, j+1, this.height - i, (i*this.width)+j));	//Da die "oberste" Zeile zuerst initialisiert wird, ergibt sich die Y-Koordinate
+				playingField[i][j] = new Cell(cellState, j+1, this.height - i, (i*this.width)+j));	//Da die "oberste" Zeile zuerst initialisiert wird, ergibt sich die Y-Koordinate
 			}																				//der Zelle rückwärtszählend beginnend mit der höchsten.
 		}
-		for (Cell cell : field) {
+		for (Cell cell : playingField) {
 			cell.setAliveNeighbours(this);
 		}
 	}
@@ -62,9 +62,9 @@ public class Field implements TransitionRules{
 		int k = 0;																// und setzt Ausgabe dann von links nach rechts und von oben nach unten fort.
 		for (int i = 0; i < this.height; i++) {									// index k wird bei jeder Ausgabe um 1 inkrementiert und stellt somit den Index der jeweiligen
 			for (int j = 0; j < this.width; j++) {								// Zelle dar. Könnte auch mit (i*this.xSize)+j berechnet werden, wofür aus Gründer der Lesbarkeit
-				System.out.print(this.field.get(k).getState() + " ");			// verzichtet wird.
-//				System.out.print(this.field.get((k).getyCoordinate() + " ");
-//				System.out.print(this.field.get(k).getxCoordinate() + " ");
+				System.out.print(this.playingField.get(k).getState() + " ");			// verzichtet wird.
+//				System.out.print(this.playingField.get((k).getyCoordinate() + " ");
+//				System.out.print(this.playingField.get(k).getxCoordinate() + " ");
 //				System.out.print(k + " ");
 				k +=1;
 			}
@@ -88,14 +88,14 @@ public class Field implements TransitionRules{
 	}
 
 	@Override
-	public void fieldTransition(){
-		for (Cell cell : field) {
+	public void playingFieldTransition(){
+		for (Cell cell : playingField) {
 			cell.calcAliveNeighbours(this);
 		}
-		for (Cell cell : this.field) {
+		for (Cell cell : this.playingField) {
 			this.singleTransition(cell, cell.getAliveNeighbours());
 		}
-		for (Cell cell : this.field) {
+		for (Cell cell : this.playingField) {
 			cell.setAliveNeighbours(this);
 		}
 	}

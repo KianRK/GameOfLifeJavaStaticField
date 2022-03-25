@@ -1,6 +1,6 @@
 package GameOfLifeData;
 
-public class Cell {
+public class Cell extends Field{
 	private boolean state; // True gleich lebendig und False gleich tot
 	private int xCoordinate;
 	private int yCoordinate;
